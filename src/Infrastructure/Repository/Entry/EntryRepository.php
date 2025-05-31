@@ -15,11 +15,11 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
                         SELECT 
                             *
                         FROM
-                            entries A
+                            entries E
                         WHERE
-                            A.id = :id
+                            E.id = :id
                         AND
-                            A.deleted = 0
+                            E.deleted = 0
                     HEREDOC;
 
         $parameters = [
@@ -29,6 +29,28 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
         $result = $this->execute($query, $parameters);
 
         return $this->toEntry($result[0] ?? null);
+    }
+
+    /** @return Entry[] */
+    public function search(): array
+    {
+        $query = <<<HEREDOC
+                        SELECT
+                            *
+                        FROM
+                            entries E
+                        WHERE
+                            E.deleted = 0
+                    HEREDOC;
+        
+        $results = $this->execute($query);
+
+        $entries = [];
+        foreach($results as $result) {
+            $entries[] = $this->toEntry($result);
+        }
+
+        return $entries;
     }
 
     
