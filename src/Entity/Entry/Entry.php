@@ -14,6 +14,11 @@ final class Entry {
     ) {
     }
 
+    public static function create(int $id_author, string $title, string $text, DateTime $creation_date): self
+    {
+        return new self(null,$id_author,$title,$text,$creation_date, false);
+    }
+
         
     
 

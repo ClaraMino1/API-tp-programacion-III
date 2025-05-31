@@ -53,6 +53,20 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
         return $entries;
     }
 
+    public function insert(Entry $entry): void
+    {
+        $query = "INSERT INTO Entries (id_author, title, text, creation_date) VALUES (:id_author, :title, :text,:creation_date) ";
+
+        $parameters = [
+            "id_author" => $entry->id_author(),
+            "title" => $entry->title(),
+            "text" => $entry->text(),
+            "creation_date" => $entry->creation_date()->format("Y-m-d H:i:s"),
+        ];
+
+        $this->execute($query, $parameters);
+    }
+
     
 
 

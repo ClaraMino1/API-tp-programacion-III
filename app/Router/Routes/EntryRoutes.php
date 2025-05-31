@@ -24,7 +24,7 @@ final readonly class EntryRoutes {
       [
         "name" => "entry_post",
         "url" => "/entries",
-        "controller" => "Entry/EntriesPostController.php",
+        "controller" => "Entry/EntryPostController.php",
         "method" => "POST"
       ],
       [
