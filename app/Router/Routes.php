@@ -8,9 +8,6 @@ function startRouter(): Router
     // Inicializamos el array de rutas
     $routes = [];
 
-    include_once "Routes/ArticleRoutes.php";
-    $routes = array_merge($routes, ArticleRoutes::getRoutes());
-
     include_once "Routes/EntryRoutes.php";
     $routes = array_merge($routes, EntryRoutes::getRoutes());
     

@@ -19,7 +19,7 @@ final readonly class EntryFinderService {
         $entry = $this->repository->find($id);
 
         if ($entry === null) {
-            throw new ArticleNotFoundException($id);
+            throw new EntryNotFoundException($id);
         }
 
         return $entry;

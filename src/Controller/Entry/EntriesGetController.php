@@ -27,7 +27,7 @@ final readonly class EntriesGetController {
             "title" => $entry->title(),
             "text" => $entry->text(),
             "creation_date" => $entry->creation_date()->format("Y-m-d H:i:s"),
-            "deleted" => $entry->deleted()
+            "deleted" => $entry->isDeleted()
         
 
             ];
