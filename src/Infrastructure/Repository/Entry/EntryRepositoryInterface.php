@@ -19,6 +19,9 @@ interface EntryRepositoryInterface {
     /*UPDATE AN ENTRY */
     public function update(Entry $entry): void;
 
+  
+
+
 
 
    

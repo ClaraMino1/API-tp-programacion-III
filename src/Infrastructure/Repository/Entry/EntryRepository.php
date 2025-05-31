@@ -87,7 +87,7 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
             "title" => $entry->title(),
             "text" => $entry->text(),
             "creation_date" => $entry->creation_date()->format("Y-m-d H:i:s"),
-            "deleted" => $entry->deleted(),
+            "deleted" => $entry->isDeleted(),
             "id" => $entry->id(),
         ];
 

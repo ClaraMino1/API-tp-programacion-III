@@ -27,7 +27,15 @@ final class Entry {
         $this->creation_date = $creation_date;
     }   
     
+    public function delete(): void
+    {
+        $this->deleted = true;
+    }
 
+    public function isDeleted(): int
+    {
+        return $this->deleted ? 1 : 0;
+    }
 
 
 
@@ -60,8 +68,5 @@ final class Entry {
         return $this->creation_date;
     }
     
-    public function deleted(): int
-    {
-        return $this->deleted ? 1 : 0;
-    }
+    
 }
