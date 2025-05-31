@@ -67,6 +67,33 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
         $this->execute($query, $parameters);
     }
 
+    public function update(Entry $entry): void
+    {
+        $query = <<<UPDATE_ARTICLE
+                    UPDATE
+                        entries
+                    SET
+                        id_author = :id_author,
+                        title = :title,
+                        text = :text,
+                        creation_date = :creation_date,
+                        deleted = :deleted
+                    WHERE
+                        id = :id
+                UPDATE_ARTICLE;
+        
+        $parameters = [
+            "id_author" => $entry->id_author(),
+            "title" => $entry->title(),
+            "text" => $entry->text(),
+            "creation_date" => $entry->creation_date()->format("Y-m-d H:i:s"),
+            "deleted" => $entry->deleted(),
+            "id" => $entry->id(),
+        ];
+
+        $this->execute($query, $parameters);
+    }
+
     
 
 

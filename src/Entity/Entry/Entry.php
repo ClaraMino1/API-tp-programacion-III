@@ -19,7 +19,13 @@ final class Entry {
         return new self(null,$id_author,$title,$text,$creation_date, false);
     }
 
-        
+     public function modify(int $id_author,string $title, string $text, DateTime $creation_date): void
+    {
+        $this->id_author = $id_author;
+        $this->title = $title;
+        $this->text = $text;
+        $this->creation_date = $creation_date;
+    }   
     
 
 

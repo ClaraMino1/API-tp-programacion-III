@@ -16,6 +16,10 @@ interface EntryRepositoryInterface {
     /*CREATE AN ENTRY */
     public function insert(Entry $entry): void;
 
+    /*UPDATE AN ENTRY */
+    public function update(Entry $entry): void;
+
+
 
    
 }
