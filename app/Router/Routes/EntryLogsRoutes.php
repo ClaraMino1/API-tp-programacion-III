@@ -22,16 +22,9 @@ final readonly class EntryLogsRoutes {
             ]
         ],
         [
-            "name" => "entryLogs_delete",
-            "url" => "/entryLogs",
-            "controller" => "EntryLogs/EntryLogsDeleteController.php",
-            "method" => "DELETE",
-            "parameters" => [
-                [
-                    "name" => "id",
-                    "type" => "int"
-                ]
-            ]
+            "name" => "entryLogs_post",
+            "url" => "/entrylogs",
+            "method" => "POST"
         ]
     ];
   }

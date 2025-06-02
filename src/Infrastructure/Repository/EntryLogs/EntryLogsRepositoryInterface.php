@@ -10,7 +10,5 @@ interface EntryLogsRepositoryInterface {
     /** @return EntryLogs[] */
     public function search(): array;
 
-    public function insert(EntryLogs $entryLogs): void;
-
-    //public function delete(EntryLogs $entryLogs): void;
+    public function create(EntryLogs $entryLogs): void;
 }

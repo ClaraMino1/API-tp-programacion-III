@@ -46,7 +46,7 @@ final readonly class EntryLogsRepository extends PDOManager implements EntryLogs
 
         return $entrylogs;
     }
-    public function insert(EntryLogs $entrylogs): void
+    public function create(EntryLogs $entrylogs): void
     {
         $query = "INSERT INTO EntryLogs (id_entry, creation_date, description) VALUES (:id_entry, :creation_data, :description) ";
 
