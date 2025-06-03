@@ -24,11 +24,7 @@ final class Author {
         $this->email = $email;
     }
     
-// Cambia Estado 'DELETED'
-    public function delete(): void
-    {
-        $this->deleted = true;
-    }
+
 
     
     public function id(): ?int
@@ -50,5 +46,11 @@ final class Author {
     public function isDeleted(): int
     {
         return $this->deleted ? 1 : 0;
+    }
+
+    // Cambia Estado 'DELETED'
+    public function delete(): void
+    {
+        $this->deleted = true;
     }
 }

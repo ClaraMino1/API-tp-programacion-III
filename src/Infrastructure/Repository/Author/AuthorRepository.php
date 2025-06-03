@@ -12,7 +12,7 @@ final readonly class AuthorRepository extends PDOManager implements AuthorReposi
                         SELECT 
                             *
                         FROM
-                            author A
+                            Authors A
                         WHERE
                             A.id = :id
                         AND
@@ -36,7 +36,7 @@ final readonly class AuthorRepository extends PDOManager implements AuthorReposi
                         SELECT
                             *
                         FROM
-                            article A
+                            Authors A
                         WHERE
                             A.deleted = 0
                     SEARCH_AUTHOR;
@@ -55,10 +55,11 @@ final readonly class AuthorRepository extends PDOManager implements AuthorReposi
     {
         $query = <<<UPDATE_AUTHOR
                     UPDATE
-                        author
+                        Authors
                     SET
                         name = :name,
                         email = :email,
+                        deleted = :deleted
                     WHERE
                         id = :id
                     UPDATE_AUTHOR;
@@ -66,7 +67,9 @@ final readonly class AuthorRepository extends PDOManager implements AuthorReposi
         $parameters = [
             "name" => $author->name(),
             "email" => $author->email(),
-            "id" => $author->id(),
+            "deleted"=>$author->isDeleted(),
+            "id" => $author->id()
+            
         ];
 
         $this->execute($query, $parameters);
@@ -76,7 +79,7 @@ final readonly class AuthorRepository extends PDOManager implements AuthorReposi
     
     public function insert(Author $author): void
     {
-        $query = "INSERT INTO Author (name, email, deleted) VALUES (:name, :title, :email, :deleted) ";
+        $query = "INSERT INTO Authors (name, email, deleted) VALUES (:name, :email, :deleted) ";
         
         $parameters = [
             "name" => $author->name(),
@@ -94,7 +97,8 @@ final readonly class AuthorRepository extends PDOManager implements AuthorReposi
         return new Author(
             $primitive["id"],
             $primitive["name"],
-            $primitive["email"]
+            $primitive["email"],
+            $primitive["deleted"]
         );
     }
 }

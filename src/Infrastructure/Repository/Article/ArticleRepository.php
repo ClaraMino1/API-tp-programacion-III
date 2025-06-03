@@ -55,7 +55,7 @@ final readonly class ArticleRepository extends PDOManager implements ArticleRepo
     {
         $query = <<<UPDATE_ARTICLE
                     UPDATE
-                        article
+                        Authors
                     SET
                         category_id = :category_id,
                         title = :title,
