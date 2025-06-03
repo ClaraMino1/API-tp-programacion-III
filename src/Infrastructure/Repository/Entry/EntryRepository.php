@@ -86,7 +86,7 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
     public function update(Entry $entry): void{
         //si se usó el metodo delete() de Entry, esto va a haber cambiado a true ->deleted = :deleted. si no siempre se mantiene en false
 
-        $query = <<<UPDATE_ARTICLE
+        $query = <<<UPDATE_ENTRY
                     UPDATE
                         entries
                     SET
@@ -97,7 +97,7 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
                         deleted = :deleted
                     WHERE
                         id = :id
-                UPDATE_ARTICLE;
+                    UPDATE_ENTRY;
         
         $parameters = [//se pasan los datos de entry con getters
             "id_author" => $entry->id_author(),
