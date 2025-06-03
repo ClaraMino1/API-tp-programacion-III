@@ -8,11 +8,11 @@ function startRouter(): Router
     // Inicializamos el array de rutas
     $routes = [];
 
-    // include_once "Routes/ArticleRoutes.php";
-    // $routes = array_merge($routes, ArticleRoutes::getRoutes());
-
     include_once "Routes/EntryLogsRoutes.php";
     $routes = array_merge($routes, EntryLogsRoutes::getRoutes());
+
+    include_once "Routes/EntryRoutes.php";
+    $routes = array_merge($routes, EntryRoutes::getRoutes());
     
     // Como las rutas en este momento son primitivas, tenemos que encapsularlas en un DTO
     $routesClass = [];
