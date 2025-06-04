@@ -4,6 +4,8 @@ namespace Src\Entity\Entry;
 use DateTime;
 final class Entry {
 
+    
+
     public function __construct(
         private readonly ?int $id, //id inmutable
         private int $id_author,
@@ -20,20 +22,16 @@ final class Entry {
         //id = null (será generado por la DB).  y deleted = false
         return new self(null,$id_author,$title,$text,$creation_date, false);
     }
-
-
-
     
-     public function modify(int $id_author,string $title, string $text, DateTime $creation_date): void{
+    public function modify(int $id_author,string $title, string $text, DateTime $creation_date): self{
         //le asigna a la entidad los valores que llegan por parametro. como si fuesen varios setters
         $this->id_author = $id_author;
         $this->title = $title;
         $this->text = $text;
         $this->creation_date = $creation_date;
+
+        return new self(null,$id_author,$title,$text,$creation_date, false);
     }   
-    
-
-
 
     public function delete(): void{
         $this->deleted = true; //cambia el estado de deleted

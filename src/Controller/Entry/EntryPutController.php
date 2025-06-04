@@ -1,8 +1,10 @@
 <?php 
 
+
 use Src\Utils\ControllerUtils;
 use Src\Service\Entry\EntryUpdaterService;
 use Src\Service\EntryLogs\EntryLogsCreatorService;
+use Src\Entity\Entry\Entry;
 
 
 final readonly class EntryPutController {
@@ -26,13 +28,12 @@ final readonly class EntryPutController {
 
         $creation_date = new DateTime($creation_date);
 
-       
-        
+        $description = "actualizó";
 
         $this->service->update($id_author, $title, $text, $creation_date,$id);
         //se llama al metodo update del EntryUpdaterService
 
-        $this->serviceLogs->create();//faltan parametros
-
+        $this->serviceLogs->create($id,$creation_date,$description);
     }
+
 }

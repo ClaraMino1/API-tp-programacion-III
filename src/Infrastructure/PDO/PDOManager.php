@@ -13,6 +13,10 @@ readonly class PDOManager {
 		$this->client = $client->connect();
 	}
 
+	protected function lastInsertId(): string {
+        return $this->client->lastInsertId();
+    }
+
 	public function execute(
 		string $query,
 		array $parameters = []

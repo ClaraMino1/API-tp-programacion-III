@@ -67,7 +67,7 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
     }
 
     //Recibe un objeto desde el servicio
-    public function insert(Entry $entry): void
+    public function insert(Entry $entry): int
     {
         $query = "INSERT INTO Entries (id_author, title, text, creation_date,deleted) VALUES (:id_author, :title, :text,:creation_date,:deleted) ";
 
@@ -80,10 +80,12 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
 
         ];
 
+        
         $this->execute($query, $parameters);//Método heredado de PDOManager.Retorna un array asociativo con los resultados
+        return (int)$this->lastInsertId();
     }
 
-    public function update(Entry $entry): void{
+    public function update(Entry $entry): int{
         //si se usó el metodo delete() de Entry, esto va a haber cambiado a true ->deleted = :deleted. si no siempre se mantiene en false
 
         $query = <<<UPDATE_ARTICLE
@@ -109,7 +111,8 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
         ];
 
         $this->execute($query, $parameters);//Método heredado de PDOManager.Retorna un array asociativo con los resultados
-        
+        return (int)$this->lastInsertId();
+
     }
 
     

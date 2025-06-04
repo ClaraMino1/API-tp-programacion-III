@@ -19,10 +19,8 @@ final readonly class EntryUpdaterService {
     public function update(int $id_author, string $title, string $text, DateTime $creation_date, int $id): void //recibe los parametros que le pasa el controller
     {
         $entry = $this->finder->find($id); //busca el id con el servicio find y devuelve el objeto Entry
-
         $entry->modify($id_author, $title, $text,$creation_date);
         //se llama a la funcion modify del objeto Entry. Se modifica la entidad pero no la BD
-
         $this->repository->update($entry);
     } 
 }

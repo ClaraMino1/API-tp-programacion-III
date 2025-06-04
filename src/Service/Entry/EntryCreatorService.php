@@ -14,12 +14,16 @@ final readonly class EntryCreatorService {
     }
 
     //recibe los parametros del controller
-    public function create(int $id_author, string $title, string $text, DateTime $creation_date): void{
+    public function create(int $id_author, string $title, string $text, DateTime $creation_date): Entry{
 
         //Retorna una nueva instancia de Entry
         $Entry = Entry::create($id_author, $title, $text, $creation_date);
 
         //inserta los datos a la BD con el repository
-        $this->repository->insert($Entry);
+        $id = $this->repository->insert($Entry);
+
+
+
+        return new Entry($id,$id_author, $title, $text, $creation_date, false);
     }
 }

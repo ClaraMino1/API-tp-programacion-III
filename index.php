@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+
 // Cargamos configuración de composer
 require_once dirname(__DIR__).'/html/vendor/autoload.php';
 // Inicializamos el routeador
