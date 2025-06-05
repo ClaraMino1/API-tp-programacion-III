@@ -23,14 +23,12 @@ final class Entry {
         return new self(null,$id_author,$title,$text,$creation_date, false);
     }
     
-    public function modify(int $id_author,string $title, string $text, DateTime $creation_date): self{
+    public function modify(int $id_author,string $title, string $text): void{
         //le asigna a la entidad los valores que llegan por parametro. como si fuesen varios setters
         $this->id_author = $id_author;
         $this->title = $title;
         $this->text = $text;
-        $this->creation_date = $creation_date;
 
-        return new self(null,$id_author,$title,$text,$creation_date, false);
     }   
 
     public function delete(): void{

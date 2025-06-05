@@ -95,7 +95,6 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
                         id_author = :id_author,
                         title = :title,
                         text = :text,
-                        creation_date = :creation_date,
                         deleted = :deleted
                     WHERE
                         id = :id
@@ -105,7 +104,6 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
             "id_author" => $entry->id_author(),
             "title" => $entry->title(),
             "text" => $entry->text(),
-            "creation_date" => $entry->creation_date()->format("Y-m-d H:i:s"),
             "deleted" => $entry->isDeleted(), // Se obtiene el estado actualizado y se pasa a la BD
             "id" => $entry->id(),
         ];

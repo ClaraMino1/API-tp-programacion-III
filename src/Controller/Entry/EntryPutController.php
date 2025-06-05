@@ -24,13 +24,13 @@ final readonly class EntryPutController {
         $id_author = ControllerUtils::getPost("id_author");
         $title = ControllerUtils::getPost("title");
         $text = ControllerUtils::getPost("text");
-        $creation_date = ControllerUtils::getPost("creation_date");
+        //$creation_date = ControllerUtils::getPost("creation_date");
 
-        $creation_date = new DateTime($creation_date);
+        $creation_date = new DateTime('now'); //hora actual
 
         $description = "actualizó";
 
-        $this->service->update($id_author, $title, $text, $creation_date,$id);
+        $this->service->update($id_author, $title, $text,$id);
         //se llama al metodo update del EntryUpdaterService
 
         $this->serviceLogs->create($id,$creation_date,$description);
