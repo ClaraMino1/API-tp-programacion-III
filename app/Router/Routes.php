@@ -14,6 +14,9 @@ function startRouter(): Router
     include_once "Routes/EntryRoutes.php";
     $routes = array_merge($routes, EntryRoutes::getRoutes());
     
+    include_once "Routes/AuthorRoutes.php";//Ruta author
+    $routes = array_merge($routes, AuthorRoutes::getRoutes());
+
     // Como las rutas en este momento son primitivas, tenemos que encapsularlas en un DTO
     $routesClass = [];
     foreach ($routes as $route) {
