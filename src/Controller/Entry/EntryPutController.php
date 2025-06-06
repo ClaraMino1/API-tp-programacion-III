@@ -2,19 +2,29 @@
 
 
 use Src\Utils\ControllerUtils;
-use Src\Service\Entry\EntryUpdaterService;
-use Src\Service\EntryLogs\EntryLogsCreatorService;
 use Src\Entity\Entry\Entry;
+
+/*use Src\Service\Entry\EntryUpdaterService;
+use Src\Service\EntryLogs\EntryLogsCreatorService;*/ //????
+
+use Src\Service\EntryLogsPutPostHandler; //??
+
+
 
 
 final readonly class EntryPutController {
-    private EntryUpdaterService $service; //se crea el objeto EntryUpdaterService
-    private EntryLogsCreatorService $serviceLogs;
+
+    // private EntryUpdaterService $service;
+    // private EntryLogsCreatorService $serviceLogs;
+
+    private EntryLogsPutPostHandler $handler;
 
 
     public function __construct() {
-        $this->service = new EntryUpdaterService(); //se instancia el objeto
-        $this->serviceLogs = new EntryLogsCreatorService();
+        //$this->service = new EntryUpdaterService(); //se instancia el objeto
+        //$this->serviceLogs = new EntryLogsCreatorService();
+
+        $this->handler = new EntryLogsPutPostHandler();
 
     }
 
@@ -28,10 +38,14 @@ final readonly class EntryPutController {
 
         $creation_date = new DateTime('now'); //hora actual
 
-        $description = "actualizó";
 
+        //llamar al handler
+        $this->handler->
+        
         $this->service->update($id_author, $title, $text,$id);
         //se llama al metodo update del EntryUpdaterService
+        
+       $description = "El autor con el id: " . $id_author . " ha actualizado una entrada";
 
         $this->serviceLogs->create($id,$creation_date,$description);
     }

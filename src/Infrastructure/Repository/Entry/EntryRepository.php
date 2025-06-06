@@ -112,10 +112,7 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
         return (int)$this->lastInsertId();
 
     }
-
     
-
-
     //Convierte arrays DB → Objetos Entry
     private function toEntry(?array $primitive): ?Entry {
         if ($primitive === null) {
@@ -130,9 +127,5 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
             new DateTime($primitive["creation_date"]),
             $primitive["deleted"]
         );
-
-       
     }
-
-    
 }

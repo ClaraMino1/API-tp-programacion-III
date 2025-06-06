@@ -27,12 +27,11 @@ final readonly class EntryPostController {
         
         $creation_date = new DateTime('now'); //hora actual
 
-
-
-        $description = "creó ";
+        //llamar al handler
 
         $entry = $this->service->create($id_author, $title, $text, $creation_date);
-        //llama al servicio y le pasa los datos obtenidos del body
+        
+        $description = "El autor con el id: " . $id_author . " ha creado una entrada";
 
         $this->serviceLogs->create($entry->id(),$creation_date,$description);
     }
