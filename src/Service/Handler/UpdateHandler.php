@@ -26,7 +26,7 @@ final class UpdateHandler{
     public function handle(int $id_author, string $title, string $text, int $id):void{
 
         //actualizar la entrada
-        $entry = $this->entryUpdaterService->update($id_author, $title, $text,$id);
+        $this->entryUpdaterService->update($id_author, $title, $text,$id);
 
         //crear log de actualizacion
         $description = "El autor con el id: " . $id_author . " ha actualizado una entrada";

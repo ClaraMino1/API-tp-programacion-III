@@ -1,20 +1,17 @@
 <?php
 
 use Src\Utils\ControllerUtils;
-use Src\Service\Entry\EntryCreatorService;
-use Src\Service\EntryLogs\EntryLogsCreatorService;
 use Src\Entity\Entry\Entry;
+use Src\Service\Handler\CreateHandler;
 
 
 final readonly class EntryPostController {
-    private EntryCreatorService $service; //se crea el objeto EntryCreatorService
-    private EntryLogsCreatorService $serviceLogs;
-    
+
+    private CreateHandler $handler;
+
 
     public function __construct() {
-        $this->service = new EntryCreatorService();//se instancia el objeto
-        $this->serviceLogs = new EntryLogsCreatorService();
-        
+        $this->handler = new CreateHandler();
     }
 
     public function start(): void{//para crear una entry no se pasa parametros por url sino por el body
@@ -25,14 +22,10 @@ final readonly class EntryPostController {
         $title = ControllerUtils::getPost("title");
         $text = ControllerUtils::getPost("text");
         
-        $creation_date = new DateTime('now'); //hora actual
 
-        //llamar al handler
+        $this->handler->handle($id_author, $title, $text); 
 
-        $entry = $this->service->create($id_author, $title, $text, $creation_date);
-        
-        $description = "El autor con el id: " . $id_author . " ha creado una entrada";
 
-        $this->serviceLogs->create($entry->id(),$creation_date,$description);
+       
     }
 }
