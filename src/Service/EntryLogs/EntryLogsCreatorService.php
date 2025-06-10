@@ -13,9 +13,9 @@ final readonly class EntryLogsCreatorService {
         $this->repository = new EntryLogsRepository();
     }
 
-    public function create(int $id_entry, DateTime $creation_date, string $description): void
+    public function create(int $id_entry, string $description): void
     {
-        $entryLogs = EntryLogs::create($id_entry, $creation_date, $description);
+        $entryLogs = EntryLogs::create($id_entry, $description);
         $this->repository->create($entryLogs);
     }
 }

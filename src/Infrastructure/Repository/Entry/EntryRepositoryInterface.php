@@ -20,7 +20,7 @@ interface EntryRepositoryInterface {
     public function search(): array;
 
     /*CREATE AN ENTRY */
-    public function insert(Entry $entry): int;
+    public function insert(Entry $entry): Entry;
 
     /*UPDATE  OR DELETE AN ENTRY */
     public function update(Entry $entry): int;

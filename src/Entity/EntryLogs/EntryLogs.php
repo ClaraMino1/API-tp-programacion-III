@@ -1,7 +1,9 @@
 <?php 
 
 namespace Src\Entity\EntryLogs;
+
 use DateTime;
+
 final class entryLogs {
 
     public function __construct(
@@ -12,9 +14,9 @@ final class entryLogs {
     ) {
     }
 
-    public static function create(string $id_entry, DateTime $creation_date, string $description): self
+    public static function create(string $id_entry, string $description): self
     {
-        return new self(null, $id_entry, $creation_date, $description);
+        return new self(null, $id_entry, new DateTime('now'), $description);
     }
 
     public function id(): ?int

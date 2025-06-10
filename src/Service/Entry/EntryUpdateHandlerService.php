@@ -1,17 +1,13 @@
 <?php 
 
-namespace Src\Service\Handler;
+namespace Src\Service\Entry;
 use DateTime;
 
 use Src\Service\Entry\EntryUpdaterService;
 use Src\Service\EntryLogs\EntryLogsCreatorService;
 use Src\Entity\EntryLogs\EntryLogs;
 
-
-
-
-
-final class UpdateHandler{
+final class EntryUpdateHandlerService{
 
     private EntryUpdaterService $entryUpdaterService;
     private EntryLogsCreatorService $entryLogsCreatorService;
@@ -19,9 +15,7 @@ final class UpdateHandler{
     public function __construct() {
         $this->entryUpdaterService = new EntryUpdaterService();
         $this->entryLogsCreatorService = new EntryLogsCreatorService();
-
     }
-
 
     public function handle(int $id_author, string $title, string $text, int $id):void{
 
@@ -31,12 +25,6 @@ final class UpdateHandler{
         //crear log de actualizacion
         $description = "El autor con el id: " . $id_author . " ha actualizado una entrada";
 
-        $creation_date = new DateTime('now'); //hora actual
-
-        $this->entryLogsCreatorService->create($id,$creation_date,$description);
-
+        $this->entryLogsCreatorService->create($id,$description);
     }
-
-
-    
 }

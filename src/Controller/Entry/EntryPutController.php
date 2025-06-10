@@ -2,16 +2,16 @@
 
 use Src\Utils\ControllerUtils;
 use Src\Entity\Entry\Entry;
-use Src\Service\Handler\UpdateHandler;
+use Src\Service\Entry\EntryUpdateHandlerService;
 
 
 final readonly class EntryPutController {
 
-    private UpdateHandler $handler;
+    private EntryUpdateHandlerService $handler;
 
 
     public function __construct() {
-        $this->handler = new UpdateHandler();
+        $this->handler = new EntryUpdateHandlerService();
     }
 
     public function start(int $id): void
