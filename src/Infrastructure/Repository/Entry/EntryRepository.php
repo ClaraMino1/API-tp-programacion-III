@@ -15,8 +15,6 @@ use DateTime;
 
 
 final readonly class EntryRepository extends PDOManager implements EntryRepositoryInterface {
-   
-   
     public function find(int $id): ?Entry //puede retornar un objeto Entry o null
     {
         //:id: Parámetro preparado para seguridad contra inyección SQL
@@ -43,6 +41,28 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
         //Si existe $result[0], lo usa, si no retorna null
     }
 
+    public function findDeleted(int $id): ?Entry
+    {
+        $query = <<<FIND_DELETED_ENTRY
+                        SELECT 
+                            *
+                        FROM
+                            entries E
+                        WHERE
+                            E.id = :id
+                        AND
+                            E.deleted = 1
+                    FIND_DELETED_ENTRY;
+
+        $parameters = [
+            "id" => $id,
+        ];
+
+        $result = $this->execute($query, $parameters);
+
+        return $this->toEntry($result[0] ?? null);
+    }
+
     /** @return Entry[] */
     public function search(): array{
     //WHERE E.deleted = 0: Asegura que solo se recuperen entradas activas (soft delete)
@@ -60,6 +80,28 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
 
         $entries = [];
         foreach($results as $result) { //Convierte cada resultado en un objeto Entry
+            $entries[] = $this->toEntry($result);
+        }
+
+        return $entries;
+    }
+
+    /** @return Entry[] */
+    public function searchDeleted(): array
+    {
+        $query = <<<SEARCH_ENTRY
+                        SELECT
+                            *
+                        FROM
+                            entries E
+                        WHERE
+                            E.deleted = 1
+                    SEARCH_ENTRY;
+        
+        $results = $this->execute($query);
+
+        $entries = [];
+        foreach($results as $result) {
             $entries[] = $this->toEntry($result);
         }
 
@@ -94,7 +136,7 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
     public function update(Entry $entry): int{
         //si se usó el metodo delete() de Entry, esto va a haber cambiado a true ->deleted = :deleted. si no siempre se mantiene en false
 
-        $query = <<<UPDATE_ARTICLE
+        $query = <<<UPDATE_ENTRY
                     UPDATE
                         entries
                     SET
@@ -104,7 +146,7 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
                         deleted = :deleted
                     WHERE
                         id = :id
-                UPDATE_ARTICLE;
+                UPDATE_ENTRY;
         
         $parameters = [//se pasan los datos de entry con getters
             "id_author" => $entry->id_author(),
@@ -117,6 +159,35 @@ final readonly class EntryRepository extends PDOManager implements EntryReposito
         $this->execute($query, $parameters);//Método heredado de PDOManager.Retorna un array asociativo con los resultados
         return (int)$this->lastInsertId();
         //BORRAR? poner void
+    }
+
+    public function delete(Entry $entry): void
+    {
+        $query = <<<DELETE_ENTRY
+                        DELETE FROM entries
+                        WHERE id = :id AND deleted = 1
+                    DELETE_ENTRY;
+
+        $parameters = [
+            "id" => $entry->id()
+        ];
+
+        $this->execute($query, $parameters);
+    }
+
+    public function restore(Entry $entry): void
+    {
+        $query = <<<RESTORE_ENTRY
+                        UPDATE entries
+                        SET deleted = 0
+                        WHERE id = :id AND deleted = 1
+                    RESTORE_ENTRY;
+
+        $parameters = [
+            "id" => $entry->id()
+        ];
+
+        $this->execute($query, $parameters);
     }
     
     //Convierte arrays DB → Objetos Entry

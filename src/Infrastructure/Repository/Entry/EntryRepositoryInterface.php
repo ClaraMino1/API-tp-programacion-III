@@ -2,28 +2,25 @@
 
 namespace Src\Infrastructure\Repository\Entry;
 
-use Src\Entity\Entry\Entry; //La interfaz depende de la entidad Entry
-
-/*implements EntryRepositoryInterface:
-
-Obliga a la clase a implementar todos los métodos definidos en la interfaz
-
-Garantiza que el repositorio cumpla con el contrato establecido */
+use Src\Entity\Entry\Entry;
 
 interface EntryRepositoryInterface {
 
-    /*FIND AN ENTRY */
-    public function find(int $id): ?Entry; //retorna un objeto Entry o null
-
-    /*SEARCH ENTRIES */
-    /** @return Article[] */
-    public function search(): array;
-
-    /*CREATE AN ENTRY */
     public function insert(Entry $entry): Entry;
 
-    /*UPDATE  OR DELETE AN ENTRY */
+    public function delete(Entry $entry): void;
+
     public function update(Entry $entry): int;
+    
+    /** @return Entry[] */
+    public function search(): array;
 
+    /** @return Entry[] */
+    public function searchDeleted(): array;
 
+    public function find(int $id): ?Entry; //retorna un objeto Entry o null
+
+    public function findDeleted(int $id): ?Entry;
+
+    public function restore(Entry $entry): void;
 }

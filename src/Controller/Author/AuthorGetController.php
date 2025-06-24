@@ -17,8 +17,7 @@ final readonly class AuthorGetController {
         echo json_encode([
             "id" => $author->id(),
             "name" => $author->name(),
-            "email" => $author->email(),
-        //  "deleted" => $author->isDeleted()
+            "email" => $author->email()
         ]);
     }
 }

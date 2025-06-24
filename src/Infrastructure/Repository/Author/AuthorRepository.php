@@ -29,6 +29,28 @@ final readonly class AuthorRepository extends PDOManager implements AuthorReposi
             return $this->toAuthor($result[0] ?? null);
     }
 
+    public function findDeleted(int $id): ?Author
+    {
+        $query = <<<FIND_DELETED_AUTHOR
+                        SELECT 
+                            *
+                        FROM
+                            Authors A
+                        WHERE
+                            A.id = :id
+                        AND
+                            A.deleted = 1
+                    FIND_DELETED_AUTHOR;
+
+            $parameters = [
+                "id" => $id,
+            ];
+
+            $result = $this->execute($query, $parameters);
+
+            return $this->toAuthor($result[0] ?? null);
+    }
+
     /** @return Author[] */
     public function search(): array
     {
@@ -39,6 +61,28 @@ final readonly class AuthorRepository extends PDOManager implements AuthorReposi
                             Authors A
                         WHERE
                             A.deleted = 0
+                    SEARCH_AUTHOR;
+        
+        $results = $this->execute($query);
+
+        $authors = [];
+        foreach($results as $result) {
+            $authors[] = $this->toAuthor($result);
+        }
+
+        return $authors;
+    }
+
+    /** @return Author[] */
+    public function searchDeleted(): array
+    {
+        $query = <<<SEARCH_AUTHOR
+                        SELECT
+                            *
+                        FROM
+                            Authors A
+                        WHERE
+                            A.deleted = 1
                     SEARCH_AUTHOR;
         
         $results = $this->execute($query);
@@ -75,8 +119,6 @@ final readonly class AuthorRepository extends PDOManager implements AuthorReposi
         $this->execute($query, $parameters);
     }
 
-
-    
     public function insert(Author $author): void
     {
         $query = "INSERT INTO Authors (name, email, deleted) VALUES (:name, :email, :deleted) ";
@@ -89,6 +131,36 @@ final readonly class AuthorRepository extends PDOManager implements AuthorReposi
 
         $this->execute($query, $parameters);
     }
+
+    public function delete(Author $author): void
+    {
+        $query = <<<DELETE_AUTHOR
+                        DELETE FROM Authors
+                        WHERE id = :id AND deleted = 1
+                    DELETE_AUTHOR;
+
+        $parameters = [
+            "id" => $author->id()
+        ];
+
+        $this->execute($query, $parameters);
+    }
+
+    public function restore(Author $author): void
+    {
+        $query = <<<RESTORE_AUTHOR
+            UPDATE Authors
+            SET deleted = 0
+            WHERE id = :id AND deleted = 1
+        RESTORE_AUTHOR;
+
+        $parameters = [
+            "id" => $author->id()
+        ];
+
+        $this->execute($query, $parameters);
+    }
+
     private function toAuthor(?array $primitive): ?Author {
         if ($primitive === null) {
             return null;

@@ -11,22 +11,16 @@ final class Author {
         private bool $deleted
         ){}
 
-
     public static function create(string $name, string $email): self
     {
         return new self(null, $name, $email, false);
         // 'Self' indica Instancia de el mismo Objeto (Author)
     }
-
     public function modify(string $name, string $email): void
     {
         $this->name = $name;
         $this->email = $email;
     }
-    
-
-
-    
     public function id(): ?int
     {
         return $this->id;
@@ -42,7 +36,7 @@ final class Author {
         return $this->email;
     }
     
-// Consulta Estado 'DELETED'
+    // Consulta Estado 'DELETED'
     public function isDeleted(): int
     {
         return $this->deleted ? 1 : 0;

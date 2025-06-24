@@ -22,6 +22,12 @@ final readonly class AuthorRoutes {
         "method" => "GET"
       ],
       [
+        "name" => "authors_deleted_get",
+        "url" => "/authors/deleted",
+        "controller" => "Author/AuthorsDeletedGetController.php",
+        "method" => "GET"
+      ],
+      [
         "name" => "author_post",
         "url" => "/authors",
         "controller" => "Author/AuthorPostController.php",
@@ -38,8 +44,8 @@ final readonly class AuthorRoutes {
             "type" => "int"
           ]
         ]
-        ],
-        [
+      ],
+      [
         "name" => "author_delete",
         "url" => "/authors",
         "controller" => "Author/AuthorDeleteController.php",
@@ -50,8 +56,31 @@ final readonly class AuthorRoutes {
             "type" => "int"
           ]
         ]
+      ],
+      [
+        "name" => "author_physical_delete",
+        "url" => "/authors/physical",
+        "controller" => "Author/AuthorPhysicalDeleteController.php",
+        "method" => "DELETE",
+        "parameters" => [
+          [
+            "name" => "id",
+            "type" => "int"
+          ]
+        ]
+      ],
+      [
+        "name" => "author_restore",
+        "url" => "/authors/restore",
+        "controller" => "Author/AuthorRestoreController.php",
+        "method" => "PATCH",
+        "parameters" => [
+          [
+            "name" => "id",
+            "type" => "int"
+          ]
+        ]
       ]
-
     ];
   }
 }

@@ -27,7 +27,6 @@ final class Entry {
         $this->id_author = $id_author;
         $this->title = $title;
         $this->text = $text;
-
     }   
 
     public function delete(): void{

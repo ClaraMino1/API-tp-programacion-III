@@ -21,12 +21,6 @@ final readonly class EntryLogsRoutes {
                 ]
             ]
         ]
-        // [
-        //     "name" => "entryLogs_post",
-        //     "url" => "/entrylogs",
-        //     //"controller" => "Entry/EntryPostController.php", ???
-        //     "method" => "POST"
-        // ]
     ];
   }
 }

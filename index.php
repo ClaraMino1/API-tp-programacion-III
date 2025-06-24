@@ -10,9 +10,8 @@ require_once dirname(__DIR__).'/html/app/Router/Routes.php';
 require_once dirname(__DIR__).'/html/app/Autoloader/Autoloader.php';
 
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Methods: GET,POST,PUT,DELETE,OPTIONS');
+header('Access-Control-Methods: GET,POST,PUT,PATCH,DELETE,OPTIONS');
 header('Access-Control-Headers: *');
-
 
 // Utilizamos la libreria 'Dotenv' para cargar nuestros datos
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
